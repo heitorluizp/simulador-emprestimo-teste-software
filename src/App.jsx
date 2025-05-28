@@ -1,4 +1,5 @@
-import Simulador from './pages/Simulador';
+import React from "react";
+import Simulador from "./pages/Simulador";
 
 function App() {
   return (

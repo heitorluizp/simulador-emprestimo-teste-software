@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { simularCalculo } from '../services/calculoService';
+import React from "react";
+import { useState } from "react";
+import { simularCalculo } from "../services/calculoService";
 
 export default function Simulador() {
-  const [valor1, setValor1] = useState('');
-  const [valor2, setValor2] = useState('');
+  const [valor1, setValor1] = useState("");
+  const [valor2, setValor2] = useState("");
   const [resultado, setResultado] = useState(null);
 
   const handleSubmit = (e) => {
