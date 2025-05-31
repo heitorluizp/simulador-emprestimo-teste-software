@@ -29,7 +29,7 @@ jobs:
         run: npm test
 
       # - name: enviar cobertura para codecov
-      #   uses: codecov/codecov-action@v3
+      #   uses: codecov/codecov-action@v5.4.3
       #   with:
       #     token: ${{ secrets.CODECOV_TOKEN }}
       #     files: ./coverage/lcov.info

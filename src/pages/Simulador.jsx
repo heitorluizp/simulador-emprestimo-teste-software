@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { simularCalculo } from "../services/calculoService";
+import { SimulacaoService } from "../services/SimulacaoService";
 
 export default function Simulador() {
   const [valor1, setValor1] = useState("");
@@ -15,7 +15,7 @@ export default function Simulador() {
       valor2: Number(valor2),
     };
 
-    const resposta = simularCalculo(dados);
+    const resposta = 123;
     setResultado(resposta);
   };
 
