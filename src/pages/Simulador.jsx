@@ -73,7 +73,7 @@ export default function Simulador() {
     const [dia, mes, ano] = dataNascimento.split("/");
     const dataNascimentoDate = new Date(`${ano}-${mes}-${dia}`);
     const hoje = new Date();
-    const idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
+    let idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
     const mesAtual = hoje.getMonth();
     const diaAtual = hoje.getDate();
 
@@ -181,6 +181,7 @@ export default function Simulador() {
               }}
             >
               <TextField
+                id="valor_emprestimo"
                 placeholder="Digite o valor do empréstimo"
                 label="Valor do empréstimo"
                 size="small"
@@ -190,6 +191,7 @@ export default function Simulador() {
                 sx={textFieldStyle}
               />
               <TextField
+                id="prazo_meses"
                 placeholder="Digite o prazo em meses"
                 label="Prazo em meses"
                 size="small"
@@ -199,6 +201,7 @@ export default function Simulador() {
                 sx={textFieldStyle}
               />
               <TextField
+                id="data_nascimento"
                 placeholder="Digite a sua data de nascimento"
                 label="Data de nascimento"
                 size="small"
@@ -238,6 +241,7 @@ export default function Simulador() {
               </Box>
             )}
             <Button
+              disabled={!valorEmprestimo || !prazoMeses || !dataNascimento}
               variant="contained"
               onClick={handleCalcular}
               sx={{ textTransform: "none" }}
