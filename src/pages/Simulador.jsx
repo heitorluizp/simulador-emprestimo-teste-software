@@ -11,37 +11,126 @@ import {
   Typography,
 } from "@mui/material";
 
+const regrasMock = [
+  { atributo: "idade", valor: 18, operador: ">=", taxa: "0.03" },
+  { atributo: "idade", valor: 25, operador: ">=", taxa: "0.025" },
+  { atributo: "idade", valor: 35, operador: ">=", taxa: "0.02" },
+  { atributo: "idade", valor: 60, operador: ">=", taxa: "0.018" },
+];
+const defaultTaxa = 0.05;
+
 export default function Simulador() {
-  const [valor1, setValor1] = useState("");
-  const [valor2, setValor2] = useState("");
+  const service = new SimulacaoService(regrasMock, defaultTaxa);
+
+  const [valorEmprestimo, setValorEmprestimo] = useState("");
+  const [prazoMeses, setPrazoMeses] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+
   const [resultado, setResultado] = useState(null);
 
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [snackbar, setSnackbar] = React.useState({
+    mensagem: "",
+    tipo: "",
+    aberto: false,
+  });
+
+  const handleValorEmprestimo = (e) => {
+    setValorEmprestimo(e.target.value);
+  };
+
+  const handlePrazoMeses = (e) => {
+    setPrazoMeses(e.target.value);
+  };
+
+  const handleDataNascimento = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+
+    if (value.length > 2) {
+      value = value.slice(0, 2) + "/" + value.slice(2);
+    }
+    if (value.length > 5) {
+      value = value.slice(0, 5) + "/" + value.slice(5);
+    }
+
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+
+    setDataNascimento(value);
+  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setOpenSnackbar(false);
+    setSnackbar({ ...snackbar, aberto: false });
   };
 
-  const handleSubmit = (e) => {
+  const handleCalcular = (e) => {
     e.preventDefault();
 
-    const dados = {
-      valor1: Number(valor1),
-      valor2: Number(valor2),
-    };
+    const [dia, mes, ano] = dataNascimento.split("/");
+    const dataNascimentoDate = new Date(`${ano}-${mes}-${dia}`);
+    const hoje = new Date();
+    const idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
+    const mesAtual = hoje.getMonth();
+    const diaAtual = hoje.getDate();
 
-    const resposta = 123;
+    if (
+      mesAtual < dataNascimentoDate.getMonth() ||
+      (mesAtual === dataNascimentoDate.getMonth() &&
+        diaAtual < dataNascimentoDate.getDate())
+    ) {
+      idade--;
+    }
+
+    if (isNaN(idade) || idade <= 6) {
+      setSnackbar({
+        mensagem:
+          "Data de nascimento inválida. A idade deve ser maior do que 6 anos",
+        tipo: "error",
+        aberto: true,
+      });
+      return;
+    }
+
+    const resposta = service.calcularSimulacao(
+      valorEmprestimo,
+      prazoMeses,
+      dataNascimento
+    );
+
+    if (valorEmprestimo <= 0) {
+      setSnackbar({
+        mensagem: "O valor do empréstimo deve ser maior do que 0",
+        tipo: "error",
+        aberto: true,
+      });
+      return;
+    }
+
+    if (prazoMeses <= 0) {
+      setSnackbar({
+        mensagem: "O prazo em meses deve ser maior do que 0",
+        tipo: "error",
+        aberto: true,
+      });
+      return;
+    }
+
     setResultado(resposta);
-    setOpenSnackbar(true);
+    setSnackbar({
+      mensagem: "Cálculo realizado com sucesso!",
+      tipo: "success",
+      aberto: true,
+    });
   };
 
   const handleReset = () => {
-    setValor1("");
-    setValor2("");
+    setValorEmprestimo("");
+    setPrazoMeses("");
+    setDataNascimento("");
     setResultado(null);
   };
 
@@ -92,20 +181,29 @@ export default function Simulador() {
               }}
             >
               <TextField
-                placeholder="Valor 1"
-                label="Valor 1"
+                placeholder="Digite o valor do empréstimo"
+                label="Valor do empréstimo"
                 size="small"
-                value={valor1}
-                onChange={(e) => setValor1(e.target.value)}
+                value={valorEmprestimo}
+                onChange={handleValorEmprestimo}
                 required
                 sx={textFieldStyle}
               />
               <TextField
-                placeholder="Valor 2"
-                label="Valor 2"
+                placeholder="Digite o prazo em meses"
+                label="Prazo em meses"
                 size="small"
-                value={valor2}
-                onChange={(e) => setValor2(e.target.value)}
+                value={prazoMeses}
+                onChange={handlePrazoMeses}
+                required
+                sx={textFieldStyle}
+              />
+              <TextField
+                placeholder="Digite a sua data de nascimento"
+                label="Data de nascimento"
+                size="small"
+                value={dataNascimento}
+                onChange={handleDataNascimento}
                 required
                 sx={textFieldStyle}
               />
@@ -131,12 +229,17 @@ export default function Simulador() {
 
             {resultado && (
               <Box>
-                <Chip label={`Resultado: ${resultado.resultado}`} />
+                <Chip
+                  label={`Resultado: ${resultado.resultado}`}
+                  sx={{
+                    fontSize: "16px",
+                  }}
+                />
               </Box>
             )}
             <Button
               variant="contained"
-              onClick={handleSubmit}
+              onClick={handleCalcular}
               sx={{ textTransform: "none" }}
             >
               Calcular
@@ -145,17 +248,17 @@ export default function Simulador() {
         </Box>
       </Box>
       <Snackbar
-        open={openSnackbar}
+        open={snackbar.aberto}
         autoHideDuration={6000}
         onClose={handleClose}
       >
         <Alert
           onClose={handleClose}
-          severity="success"
+          severity={snackbar.tipo}
           variant="filled"
           sx={{ width: "100%" }}
         >
-          Cálculo realizado com sucesso!
+          {snackbar.mensagem}
         </Alert>
       </Snackbar>
     </Box>
