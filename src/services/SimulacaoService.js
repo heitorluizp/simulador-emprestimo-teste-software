@@ -22,6 +22,12 @@ export class SimulacaoService {
     );
     const valorTotal = +(valorParcelas * prazoMeses).toFixed(4);
     const totalJuros = +(valorTotal - valorEmprestimo).toFixed(4);
+    const amortizacaoDetalhada = this.gerarTabelaAmortizacao(
+      valorEmprestimo,
+      taxaMensal,
+      prazoMeses,
+      valorParcelas
+    );
 
     return {
       valorEmprestimo,
@@ -30,6 +36,7 @@ export class SimulacaoService {
       totalJuros,
       prazoMeses,
       idade,
+      amortizacaoDetalhada,
     };
   }
   /**
@@ -95,5 +102,25 @@ export class SimulacaoService {
       }
     }
     return null;
+  }
+
+  gerarTabelaAmortizacao(valorEmprestimo, taxaMensal, prazoMeses, parcelaFixa) {
+    let saldo = valorEmprestimo;
+    const tabela = [];
+
+    for (let i = 1; i <= prazoMeses; i++) {
+      const juros = +(saldo * taxaMensal).toFixed(4);
+      const amortizacao = +(parcelaFixa - juros).toFixed(4);
+      saldo = +(saldo - amortizacao).toFixed(4);
+
+      tabela.push({
+        parcela: i,
+        juros,
+        amortizacao,
+        saldoDevedor: saldo > 0 ? saldo : 0,
+      });
+    }
+
+    return tabela;
   }
 }
