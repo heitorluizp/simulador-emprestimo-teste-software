@@ -20,6 +20,7 @@ export class SimulacaoService {
       taxaMensal,
       prazoMeses
     );
+
     const valorTotal = +(valorParcelas * prazoMeses).toFixed(4);
     const totalJuros = +(valorTotal - valorEmprestimo).toFixed(4);
     const amortizacaoDetalhada = this.gerarTabelaAmortizacao(
@@ -64,10 +65,17 @@ export class SimulacaoService {
   }
 
   calcularIdade(dataNascimento) {
-    const birthDate = dayjs(dataNascimento);
+    const birthDate = dayjs(this.converterDataNascimento(dataNascimento));
     const now = dayjs();
     return now.diff(birthDate, "year");
   }
+
+  converterDataNascimento(dataNascimento) {
+  // Converte "DD/MM/YYYY" para "YYYY-MM-DD"
+  const [dia, mes, ano] = dataNascimento.split("/");
+  return `${ano}-${mes}-${dia}`;
+}
+
 
   findTaxa(atributo, valor) {
     const node = this.taxaRegrasJson;
