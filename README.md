@@ -5,7 +5,7 @@
 ## 1. Membros do Grupo
 
 - Heitor Luiz
-- Renato
+- Renato Silva Santos
 - Caio
 
 ---
