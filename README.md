@@ -1,12 +1,57 @@
-# React + Vite
+# Simulador de Empréstimos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Membros do Grupo
 
-Currently, two official plugins are available:
+- Heitor Luiz
+- [Adicione aqui os nomes dos demais membros do grupo]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 2. Explicação do Sistema
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Este sistema é um simulador de empréstimos que permite ao usuário calcular o valor das parcelas, o valor total a ser pago, o total de juros, o prazo e a idade do solicitante a partir dos dados informados. O usuário deve preencher o valor do empréstimo, o prazo em meses e a data de nascimento. O sistema valida as informações, realiza o cálculo considerando regras de taxa de juros por idade e exibe os resultados de forma clara e detalhada, incluindo uma tabela de amortização das parcelas.
+
+---
+
+## 3. Tecnologias Utilizadas
+
+- **React**: Biblioteca JavaScript para construção da interface de usuário.
+- **Material UI**: Biblioteca de componentes React para estilização e responsividade.
+- **Jest** e **React Testing Library**: Ferramentas para testes automatizados da interface e lógica do sistema.
+- **Day.js**: Biblioteca para manipulação e cálculo de datas.
+- **Node.js** e **npm**: Ambiente de execução e gerenciamento de dependências do projeto.
+
+---
+
+## 4. Requisitos para rodar o projeto Localmente
+
+- Node.js (versão 18 ou superior)
+- npm (geralmente instalado junto com o Node.js)
+
+---
+
+## 5. Instruções para Rodar Localmente
+
+1. **Clone o repositório:**
+   ```sh
+   git clone <URL_DO_REPOSITORIO>
+   cd simulador-emprestimos
+   ```
+
+2. **Instale as dependências:**
+   ```sh
+   npm install
+   ```
+
+3. **Rode o sistema localmente:**
+   ```sh
+   npm start
+   ```
+   O sistema estará disponível em [http://localhost:3000](http://localhost:3000).
+
+4. **Para rodar os testes:**
+   ```sh
+   npm test
+   ```
+
+---
