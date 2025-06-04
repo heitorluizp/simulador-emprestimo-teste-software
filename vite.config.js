@@ -9,7 +9,7 @@ export default defineConfig({
     globals: true,
     setupFiles: "./src/setupTests.js",
     coverage: {
-      provider: "c8",
+      provider: "v8",
       reporter: ["text", "lcov"],
     },
     exclude: [...configDefaults.exclude, "dist/**"],
