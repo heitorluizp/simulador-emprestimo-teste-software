@@ -1,9 +1,12 @@
 # Simulador de Empréstimos
 
+[![codecov](https://codecov.io/gh/heitorluizp/simulador-emprestimo-teste-software/branch/main/graph/badge.svg)](https://codecov.io/gh/heitorluizp/simulador-emprestimo-teste-software)
+
 ## 1. Membros do Grupo
 
 - Heitor Luiz
-- [Adicione aqui os nomes dos demais membros do grupo]
+- Renato
+- Caio
 
 ---
 
