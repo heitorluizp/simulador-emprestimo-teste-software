@@ -6,7 +6,7 @@
 
 - Heitor Luiz
 - Renato Silva Santos
-- Caio
+- Caio Simões da Silva Ferreira
 
 ---
 
@@ -36,20 +36,24 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 ## 5. Instruções para Rodar Localmente
 
 1. **Clone o repositório:**
+
    ```sh
    git clone <URL_DO_REPOSITORIO>
    cd simulador-emprestimos
    ```
 
 2. **Instale as dependências:**
+
    ```sh
    npm install
    ```
 
 3. **Rode o sistema localmente:**
+
    ```sh
    npm start
    ```
+
    O sistema estará disponível em [http://localhost:3000](http://localhost:3000).
 
 4. **Para rodar os testes:**
