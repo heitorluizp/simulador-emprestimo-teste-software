@@ -28,11 +28,9 @@ const regrasTaxa = [
 ];
 const defaultTaxa = 0.05;
 
-
 export default function Simulador() {
   const service = new SimulacaoService(regrasTaxa, defaultTaxa);
   const [openDialog, setOpenDialog] = useState(false);
-
 
   const [valorEmprestimo, setValorEmprestimo] = useState("");
   const [prazoMeses, setPrazoMeses] = useState("");
@@ -184,7 +182,7 @@ export default function Simulador() {
           </Typography>
           <Box>
             <Typography variant="body1" color="textSecondary" pb={1}>
-              Intrução de uso da calculadora lorem ipsum dot amet
+              Preencha os campos abaixo
             </Typography>
             <Box
               sx={{
@@ -230,7 +228,8 @@ export default function Simulador() {
               width: "100%",
               gap: 2,
               justifyContent: "space-between",
-              alignItems: "center",
+              alignItems: "start",
+              height: "262px",
             }}
           >
             <Button
@@ -242,66 +241,92 @@ export default function Simulador() {
               Resetar
             </Button>
 
-          {resultado && (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2 }}>
-              <Chip
-                label={`Valor do Empréstimo: R$ ${Number(resultado.valorEmprestimo).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
-                sx={{ fontSize: "16px" }}
-              />
-              <Chip
-                label={`Valor Total: R$ ${Number(resultado.valorTotal).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
-                sx={{ fontSize: "16px" }}
-              />
-              <Chip
-                label={`Valor das Parcelas: R$ ${Number(resultado.valorParcelas).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
-                sx={{ fontSize: "16px" }}
-              />
-              <Chip
-                label={`Total de Juros: R$ ${Number(resultado.totalJuros).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
-                sx={{ fontSize: "16px" }}
-              />
-              <Chip
-                label={`Prazo (meses): ${resultado.prazoMeses}`}
-                sx={{ fontSize: "16px" }}
-              />
-              <Button
-                variant="outlined"
-                onClick={() => setOpenDialog(true)}
-                sx={{ mt: 1 }}
+            {resultado && (
+              <Box
+                sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2 }}
               >
-                Ver tabela de amortização
-              </Button>
-              <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="md" fullWidth>
-                <DialogTitle>Tabela de Amortização</DialogTitle>
-                <DialogContent>
-                  <Table size="small">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Parcela</TableCell>
-                        <TableCell>Juros (R$)</TableCell>
-                        <TableCell>Amortização (R$)</TableCell>
-                        <TableCell>Saldo Devedor (R$)</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {resultado.amortizacaoDetalhada.map((item) => (
-                        <TableRow key={item.parcela}>
-                          <TableCell>{item.parcela}</TableCell>
-                          <TableCell>{item.juros.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</TableCell>
-                          <TableCell>{item.amortizacao.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</TableCell>
-                          <TableCell>{item.saldoDevedor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</TableCell>
+                <Chip
+                  label={`Valor do Empréstimo: R$ ${Number(
+                    resultado.valorEmprestimo
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
+                />
+                <Chip
+                  label={`Valor Total: R$ ${Number(
+                    resultado.valorTotal
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
+                />
+                <Chip
+                  label={`Valor das Parcelas: R$ ${Number(
+                    resultado.valorParcelas
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
+                />
+                <Chip
+                  label={`Total de Juros: R$ ${Number(
+                    resultado.totalJuros
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
+                />
+                <Chip
+                  label={`Prazo (meses): ${resultado.prazoMeses}`}
+                  sx={{ fontSize: "16px" }}
+                />
+                <Button
+                  variant="outlined"
+                  onClick={() => setOpenDialog(true)}
+                  sx={{ mt: 1 }}
+                >
+                  Ver tabela de amortização
+                </Button>
+                <Dialog
+                  open={openDialog}
+                  onClose={() => setOpenDialog(false)}
+                  maxWidth="md"
+                  fullWidth
+                >
+                  <DialogTitle>Tabela de Amortização</DialogTitle>
+                  <DialogContent>
+                    <Table size="small">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Parcela</TableCell>
+                          <TableCell>Juros (R$)</TableCell>
+                          <TableCell>Amortização (R$)</TableCell>
+                          <TableCell>Saldo Devedor (R$)</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={() => setOpenDialog(false)}>Fechar</Button>
-                </DialogActions>
-              </Dialog>
-            </Box>
-            
-          )}
+                      </TableHead>
+                      <TableBody>
+                        {resultado.amortizacaoDetalhada.map((item) => (
+                          <TableRow key={item.parcela}>
+                            <TableCell>{item.parcela}</TableCell>
+                            <TableCell>
+                              {item.juros.toLocaleString("pt-BR", {
+                                minimumFractionDigits: 2,
+                              })}
+                            </TableCell>
+                            <TableCell>
+                              {item.amortizacao.toLocaleString("pt-BR", {
+                                minimumFractionDigits: 2,
+                              })}
+                            </TableCell>
+                            <TableCell>
+                              {item.saldoDevedor.toLocaleString("pt-BR", {
+                                minimumFractionDigits: 2,
+                              })}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={() => setOpenDialog(false)}>Fechar</Button>
+                  </DialogActions>
+                </Dialog>
+              </Box>
+            )}
             <Button
               disabled={!valorEmprestimo || !prazoMeses || !dataNascimento}
               variant="contained"

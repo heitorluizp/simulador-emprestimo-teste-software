@@ -125,39 +125,31 @@ describe("Simulador de Cálculo", () => {
     expect(screen.queryByText(/Resultado:/)).not.toBeInTheDocument();
   });
 
- test("exibe todos os campos do resultado após calcular com valores válidos", () => {
-  fireEvent.change(screen.getByLabelText(/Valor do empréstimo/i), {
-    target: { value: "1000" },
-  });
-  fireEvent.change(screen.getByLabelText(/Prazo em meses/i), {
-    target: { value: "12" },
-  });
-  fireEvent.change(screen.getByLabelText(/Data de nascimento/i), {
-    target: { value: "01/01/2000" },
-  });
-  fireEvent.click(screen.getByText("Calcular"));
+  test("exibe todos os campos do resultado após calcular com valores válidos", () => {
+    fireEvent.change(screen.getByLabelText(/Valor do empréstimo/i), {
+      target: { value: "1000" },
+    });
+    fireEvent.change(screen.getByLabelText(/Prazo em meses/i), {
+      target: { value: "12" },
+    });
+    fireEvent.change(screen.getByLabelText(/Data de nascimento/i), {
+      target: { value: "01/01/2000" },
+    });
+    fireEvent.click(screen.getByText("Calcular"));
 
-  // Checa todos os chips de resultado
-  expect(
-    screen.getByText(/Valor do Empréstimo: R\$ 1.000,00/i)
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(/Valor Total: R\$ [\d.,]+/i)
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(/Valor das Parcelas: R\$ [\d.,]+/i)
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(/Total de Juros: R\$ [\d.,]+/i)
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(/Prazo \(meses\): 12/i)
-  ).toBeInTheDocument();
-  // Checa se o botão da tabela de amortização aparece
-  expect(
-    screen.getByText(/Ver tabela de amortização/i)
-  ).toBeInTheDocument();
-});
+    expect(
+      screen.getByText(/Valor do Empréstimo: R\$ 1.000,00/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Valor Total: R\$ [\d.,]+/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Valor das Parcelas: R\$ [\d.,]+/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Total de Juros: R\$ [\d.,]+/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Prazo \(meses\): 12/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ver tabela de amortização/i)).toBeInTheDocument();
+  });
 
   test("abre o pop-up da tabela de amortização ao clicar no botão", () => {
     fireEvent.change(screen.getByLabelText(/Valor do empréstimo/i), {
@@ -172,11 +164,17 @@ describe("Simulador de Cálculo", () => {
     fireEvent.click(screen.getByText("Calcular"));
 
     fireEvent.click(screen.getByText(/Ver tabela de amortização/i));
-    expect(screen.getAllByText(/Tabela de Amortização/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/Tabela de Amortização/i).length
+    ).toBeGreaterThan(0);
     expect(screen.getAllByText(/Parcela/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Juros \(R\$\)/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Amortização \(R\$\)/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Saldo Devedor \(R\$\)/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Amortização \(R\$\)/i).length).toBeGreaterThan(
+      0
+    );
+    expect(
+      screen.getAllByText(/Saldo Devedor \(R\$\)/i).length
+    ).toBeGreaterThan(0);
   });
 
   test("exibe erro para data de nascimento inválida", async () => {
