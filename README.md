@@ -41,10 +41,10 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
   O usuário pode abrir uma tabela detalhada que mostra, mês a mês, quanto está pagando de juros, quanto está amortizando e qual o saldo devedor após cada parcela.
   A tabela de amortização é um recurso que mostra, de forma detalhada, como a dívida do empréstimo diminui ao longo do tempo. Nela, o usuário pode visualizar mês a mês:
 
-- O número da parcela.
-- O valor pago em juros naquela parcela.
-- O valor efetivamente amortizado (abatido da dívida principal) em cada pagamento.
-- O saldo devedor restante após cada parcela.
+      - O número da parcela.
+      - O valor pago em juros naquela parcela.
+      - O valor efetivamente amortizado (abatido da dívida principal) em cada pagamento.
+      - O saldo devedor restante após cada parcela.
 ---
 
 ## 3. Tecnologias Utilizadas
