@@ -50,7 +50,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 
 - **React**: Biblioteca JavaScript para construção da interface de usuário.
 - **Material UI**: Biblioteca de componentes React para estilização e responsividade.
-- **Jest** e **React Testing Library**: Ferramentas para testes automatizados da interface e lógica do sistema.
+- **Vitest** e **React Testing Library**: Ferramentas para testes automatizados da interface e lógica do sistema.
 - **Day.js**: Biblioteca para manipulação e cálculo de datas.
 - **Node.js** e **npm**: Ambiente de execução e gerenciamento de dependências do projeto.
 
