@@ -34,7 +34,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
       - **r** = taxa de juros mensal
       - **n** = número de parcelas
 
-Assim, o usuário consegue saber exatamente quanto vai pagar em cada mês e quanto pagará ao final do empréstimo.
+      Assim, o usuário consegue saber exatamente quanto vai pagar em cada mês e quanto pagará ao final do empréstimo.
   - Mostra o valor total a ser pago, o total de juros, o valor de cada parcela e o prazo.
 
 - **Tabela de amortização:**  
