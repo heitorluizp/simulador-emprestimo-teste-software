@@ -26,7 +26,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
   Com os dados preenchidos, o sistema:
   - Calcula a idade do usuário.
   - Define a taxa de juros de acordo com a idade, seguindo regras pré-definidas.
-  - Usa a fórmula PMT para calcular o valor fixo das parcelas.
+  - Usa a fórmula PMT (PMT significa "Payment" (pagamento, em inglês) e é uma sigla usada em finanças para indicar o valor fixo de cada parcela de um financiamento ou empréstimo com juros compostos.) para calcular o valor fixo das parcelas.
    - PMT = PV × r / [1 - (1 + r)^-n]
    - Onde:
       - **PMT** = valor da parcela
