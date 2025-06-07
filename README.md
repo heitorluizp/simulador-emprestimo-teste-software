@@ -18,6 +18,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 
 - **Preenchimento dos dados:**  
   O usuário informa o valor do empréstimo, o prazo em meses e sua data de nascimento.
+ ![alt text](image-1.png)
 
 - **Validação:**  
   O sistema checa se os valores são válidos (por exemplo, se o valor do empréstimo e o prazo são maiores que zero e se a idade mínima é respeitada).
@@ -36,6 +37,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 
       Assim, o usuário consegue saber exatamente quanto vai pagar em cada mês e quanto pagará ao final do empréstimo.
   - Mostra o valor total a ser pago, o total de juros, o valor de cada parcela e o prazo.
+  ![alt text](image-2.png)
 
 - **Tabela de amortização:**  
   O usuário pode abrir uma tabela detalhada que mostra, mês a mês, quanto está pagando de juros, quanto está amortizando e qual o saldo devedor após cada parcela.
@@ -44,6 +46,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
    - O valor pago em juros naquela parcela.
    - O valor efetivamente amortizado (abatido da dívida principal) em cada pagamento.
    - O saldo devedor restante após cada parcela.
+   ![alt text](image-3.png)
 ---
 
 ## 3. Tecnologias Utilizadas
