@@ -12,8 +12,39 @@
 
 ## 2. Explicação do Sistema
 
-Este sistema é um simulador de empréstimos que permite ao usuário calcular o valor das parcelas, o valor total a ser pago, o total de juros, o prazo e a idade do solicitante a partir dos dados informados. O usuário deve preencher o valor do empréstimo, o prazo em meses e a data de nascimento. O sistema valida as informações, realiza o cálculo considerando regras de taxa de juros por idade e exibe os resultados de forma clara e detalhada, incluindo uma tabela de amortização das parcelas.
+Este sistema é um simulador de empréstimos que permite ao usuário calcular o valor das parcelas, o valor total a ser pago, o total de juros, o prazo e a idade do solicitante a partir dos dados informados. 
 
+### Como funciona
+
+- **Preenchimento dos dados:**  
+  O usuário informa o valor do empréstimo, o prazo em meses e sua data de nascimento.
+
+- **Validação:**  
+  O sistema checa se os valores são válidos (por exemplo, se o valor do empréstimo e o prazo são maiores que zero e se a idade mínima é respeitada).
+
+- **Cálculo:**  
+  Com os dados preenchidos, o sistema:
+  - Calcula a idade do usuário.
+  - Define a taxa de juros de acordo com a idade, seguindo regras pré-definidas.
+  - Usa a fórmula PMT para calcular o valor fixo das parcelas.
+   - PMT = PV × r / [1 - (1 + r)^-n]
+   - Onde:
+- **PMT** = valor da parcela
+- **PV** = valor do empréstimo
+- **r** = taxa de juros mensal
+- **n** = número de parcelas
+
+Assim, o usuário consegue saber exatamente quanto vai pagar em cada mês e quanto pagará ao final do empréstimo.
+  - Mostra o valor total a ser pago, o total de juros, o valor de cada parcela e o prazo.
+
+- **Tabela de amortização:**  
+  O usuário pode abrir uma tabela detalhada que mostra, mês a mês, quanto está pagando de juros, quanto está amortizando e qual o saldo devedor após cada parcela.
+  A tabela de amortização é um recurso que mostra, de forma detalhada, como a dívida do empréstimo diminui ao longo do tempo. Nela, o usuário pode visualizar mês a mês:
+
+- O número da parcela.
+- O valor pago em juros naquela parcela.
+- O valor efetivamente amortizado (abatido da dívida principal) em cada pagamento.
+- O saldo devedor restante após cada parcela.
 ---
 
 ## 3. Tecnologias Utilizadas
