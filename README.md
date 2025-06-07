@@ -29,10 +29,10 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
   - Usa a fórmula PMT para calcular o valor fixo das parcelas.
    - PMT = PV × r / [1 - (1 + r)^-n]
    - Onde:
-- **PMT** = valor da parcela
-- **PV** = valor do empréstimo
-- **r** = taxa de juros mensal
-- **n** = número de parcelas
+      - **PMT** = valor da parcela
+      - **PV** = valor do empréstimo
+      - **r** = taxa de juros mensal
+      - **n** = número de parcelas
 
 Assim, o usuário consegue saber exatamente quanto vai pagar em cada mês e quanto pagará ao final do empréstimo.
   - Mostra o valor total a ser pago, o total de juros, o valor de cada parcela e o prazo.
