@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import RegistroSimulacaoService from "./RegistroSimulacaoService"; 
 
 export class SimulacaoService {
   constructor(taxaRegrasJson, taxaPadraoJuros) {
@@ -10,7 +11,7 @@ export class SimulacaoService {
     this.taxaPadraoJuros = taxaPadraoJuros;
   }
 
-  calcularSimulacao(valorEmprestimo, prazoMeses, dataNascimento) {
+  async calcularSimulacao(valorEmprestimo, prazoMeses, dataNascimento) {
     const idade = this.calcularIdade(dataNascimento);
     const taxaJuros = this.determinarTaxaJuros(idade);
     const taxaMensal = taxaJuros / 12;
@@ -28,6 +29,12 @@ export class SimulacaoService {
       taxaMensal,
       prazoMeses,
       valorParcelas
+    );
+
+    await RegistroSimulacaoService.registrarSimulacao(
+      valorEmprestimo,
+      prazoMeses,
+      this.converterDataNascimento(dataNascimento)
     );
 
     return {
