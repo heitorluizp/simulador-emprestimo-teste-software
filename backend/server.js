@@ -34,7 +34,15 @@ app.get('/api/simulations', (req, res) => {
 app.post('/api/simulations', async (req, res) => {
   try {
     const { nanoid } = await import('nanoid');
-    const { valorEmprestimo, prazoMeses, dataNascimento } = req.body;
+    const {
+      valorEmprestimo,
+      prazoMeses,
+      dataNascimento,
+      valorTotal,
+      valorParcelas,
+      totalJuros,
+      idade,
+    } = req.body;
 
     if (!valorEmprestimo || !prazoMeses || !dataNascimento) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -45,6 +53,10 @@ app.post('/api/simulations', async (req, res) => {
       valorEmprestimo,
       prazoMeses,
       dataNascimento,
+      valorTotal,
+      valorParcelas,
+      totalJuros,
+      idade,
       timestamp: new Date().toISOString(),
     };
 

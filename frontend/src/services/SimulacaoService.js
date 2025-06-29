@@ -30,11 +30,17 @@ export class SimulacaoService {
       prazoMeses,
       valorParcelas,
     );
-    await RegistroSimulacaoService.registrarSimulacao(
-      valorEmprestimo,
-      prazoMeses,
-      dataNascimento,
-    );
+    const payloadParaRegistro = {
+      valorEmprestimo: parseFloat(valorEmprestimo),
+      prazoMeses: parseInt(prazoMeses, 10),
+      dataNascimento: dataNascimento,
+      valorTotal: valorTotal,
+      valorParcelas: +valorParcelas.toFixed(4),
+      totalJuros: totalJuros,
+      idade: idade,
+    };
+
+    await RegistroSimulacaoService.registrarSimulacao(payloadParaRegistro);
 
     return {
       valorEmprestimo,

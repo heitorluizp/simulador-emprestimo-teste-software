@@ -1,12 +1,8 @@
 class RegistroSimulacaoService {
-  static async registrarSimulacao(valorEmprestimo, prazoMeses, dataNascimento) {
+  static async registrarSimulacao(simulationData) {
     const url = 'http://localhost:3001/api/simulations';
 
-    const payload = {
-      valorEmprestimo: parseFloat(valorEmprestimo),
-      prazoMeses: parseInt(prazoMeses, 10),
-      dataNascimento: dataNascimento,
-    };
+    const payload = simulationData;
 
     return fetch(url, {
       method: 'POST',
