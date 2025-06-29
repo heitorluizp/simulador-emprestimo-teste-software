@@ -1,11 +1,11 @@
-import dayjs from "dayjs";
-import RegistroSimulacaoService from "./RegistroSimulacaoService"; 
+import dayjs from 'dayjs';
+import RegistroSimulacaoService from './RegistroSimulacaoService';
 
 export class SimulacaoService {
   constructor(taxaRegrasJson, taxaPadraoJuros) {
     // ordena regras da mais específica pra mais genérica
     const regrasOrdenadas = [...taxaRegrasJson].sort(
-      (a, b) => b.valor - a.valor
+      (a, b) => b.valor - a.valor,
     );
     this.taxaRegrasJson = regrasOrdenadas;
     this.taxaPadraoJuros = taxaPadraoJuros;
@@ -19,7 +19,7 @@ export class SimulacaoService {
     const valorParcelas = this.calcularPMT(
       valorEmprestimo,
       taxaMensal,
-      prazoMeses
+      prazoMeses,
     );
 
     const valorTotal = +(valorParcelas * prazoMeses).toFixed(4);
@@ -28,16 +28,10 @@ export class SimulacaoService {
       valorEmprestimo,
       taxaMensal,
       prazoMeses,
-      valorParcelas
+      valorParcelas,
     );
 
-    await RegistroSimulacaoService.registrarSimulacao(
-      valorEmprestimo,
-      prazoMeses,
-      this.converterDataNascimento(dataNascimento)
-    );
-
-    return {
+    const resultado = {
       valorEmprestimo,
       valorTotal,
       valorParcelas: +valorParcelas.toFixed(4),
@@ -45,7 +39,16 @@ export class SimulacaoService {
       prazoMeses,
       idade,
       amortizacaoDetalhada,
+      dataNascimento,
     };
+
+    try {
+      await RegistroSimulacaoService.registrarSimulacao(resultado);
+    } catch (e) {
+      console.error('Falha ao salvar dados de simulação:', e);
+    }
+
+    return resultado;
   }
   /**
    * Calcula o valor da parcela fixa (PMT) usando a fórmula:
@@ -65,7 +68,7 @@ export class SimulacaoService {
 
   determinarTaxaJuros(idade) {
     try {
-      return this.findTaxa("idade", idade);
+      return this.findTaxa('idade', idade);
     } catch (e) {
       return this.taxaPadraoJuros;
     }
@@ -74,20 +77,19 @@ export class SimulacaoService {
   calcularIdade(dataNascimento) {
     const birthDate = dayjs(this.converterDataNascimento(dataNascimento));
     const now = dayjs();
-    return now.diff(birthDate, "year");
+    return now.diff(birthDate, 'year');
   }
 
   converterDataNascimento(dataNascimento) {
-  // Converte "DD/MM/YYYY" para "YYYY-MM-DD"
-  const [dia, mes, ano] = dataNascimento.split("/");
-  return `${ano}-${mes}-${dia}`;
-}
-
+    // Converte "DD/MM/YYYY" para "YYYY-MM-DD"
+    const [dia, mes, ano] = dataNascimento.split('/');
+    return `${ano}-${mes}-${dia}`;
+  }
 
   findTaxa(atributo, valor) {
     const node = this.taxaRegrasJson;
     const taxa = this.findTaxaRecursively(node, atributo, valor);
-    if (taxa == null) throw new Error("Taxa não encontrada");
+    if (taxa == null) throw new Error('Taxa não encontrada');
     return parseFloat(taxa);
   }
 
@@ -97,17 +99,17 @@ export class SimulacaoService {
         const taxa = this.findTaxaRecursively(subNode, atributo, valor);
         if (taxa != null) return taxa;
       }
-    } else if (typeof node === "object") {
+    } else if (typeof node === 'object') {
       if (node.atributo === atributo) {
         const jsonValue = node.valor;
         const operador = node.operador;
 
         const match =
-          (operador === "=" && valor === jsonValue) ||
-          (operador === ">" && valor > jsonValue) ||
-          (operador === "<" && valor < jsonValue) ||
-          (operador === ">=" && valor >= jsonValue) ||
-          (operador === "<=" && valor <= jsonValue);
+          (operador === '=' && valor === jsonValue) ||
+          (operador === '>' && valor > jsonValue) ||
+          (operador === '<' && valor < jsonValue) ||
+          (operador === '>=' && valor >= jsonValue) ||
+          (operador === '<=' && valor <= jsonValue);
 
         if (match) return node.taxa;
       }

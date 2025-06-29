@@ -1,26 +1,33 @@
 class RegistroSimulacaoService {
-  static async registrarSimulacao(
-    valorEmprestimo,
-    numeroParcela,
-    dtNascimento
-  ) {
+  static async registrarSimulacao(dadosSimulacao) {
     const url =
-      "https://script.google.com/macros/s/AKfycbzaq4MteEfDpOq87PjCr3hbLFLzrNavJruRTslYfI8ZOY7_HBXRwd5Og2lDCQZSOoI6ww/exec";
+      'https://script.google.com/macros/s/AKfycbxrRUBWwctcR6MJgxvM87vkKQvvS71CQJXx7KACQi4h5tDen4SCjehLyvZQ30RHh-O9nA/exec';
 
-    const body = `valor_emprestimo=${encodeURIComponent(valorEmprestimo)}
-    &numero_parcela=${encodeURIComponent(numeroParcela)}
-    &dt_nascimento=${encodeURIComponent(dtNascimento)}`;
+    const body = new URLSearchParams({
+      valor_emprestimo: dadosSimulacao.valorEmprestimo,
+      numero_parcelas: dadosSimulacao.prazoMeses,
+      dt_nascimento: dadosSimulacao.dataNascimento,
+      idade: dadosSimulacao.idade,
+      valor_total: dadosSimulacao.valorTotal,
+      valor_parcelas: dadosSimulacao.valorParcelas,
+      total_juros: dadosSimulacao.totalJuros,
+    }).toString();
 
     return fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: body,
     })
-      .then()
+      .then((response) => {
+        if (!response.ok) {
+          console.error('Google Script API response was not ok.');
+        }
+        return response;
+      })
       .catch((error) => {
-        console.error("Erro ao registrar simulação:", error);
+        console.error('Erro ao registrar simulação:', error);
         throw error;
       });
   }
