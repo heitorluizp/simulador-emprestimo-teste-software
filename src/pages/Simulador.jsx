@@ -35,6 +35,7 @@ export default function Simulador() {
   const [valorEmprestimo, setValorEmprestimo] = useState("");
   const [prazoMeses, setPrazoMeses] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [resultado, setResultado] = useState(null);
 
@@ -77,9 +78,9 @@ export default function Simulador() {
     setSnackbar({ ...snackbar, aberto: false });
   };
 
-  const handleCalcular = (e) => {
+  const handleCalcular = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const [dia, mes, ano] = dataNascimento.split("/");
     const dataNascimentoDate = new Date(`${ano}-${mes}-${dia}`);
     const hoje = new Date();
@@ -105,7 +106,7 @@ export default function Simulador() {
       return;
     }
 
-    const resposta = service.calcularSimulacao(
+    const resposta = await service.calcularSimulacao(
       valorEmprestimo,
       prazoMeses,
       dataNascimento
@@ -135,6 +136,7 @@ export default function Simulador() {
       tipo: "success",
       aberto: true,
     });
+    setLoading(false);
   };
 
   const handleReset = () => {
@@ -332,6 +334,7 @@ export default function Simulador() {
               variant="contained"
               onClick={handleCalcular}
               sx={{ textTransform: "none" }}
+              loading={loading}
             >
               Calcular
             </Button>
