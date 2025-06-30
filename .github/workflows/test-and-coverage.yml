@@ -2,10 +2,12 @@ name: testes e cobertura - react
 
 on:
   push:
-    branches: [main]
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 jobs:
-  test:
+  frontend-test:
     name: executar testes em ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
@@ -13,14 +15,20 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
+    defaults:
+      run:
+        working-directory: ./frontend
+
     steps:
       - name: checkout do código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: configurar node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: instalar dependências
         run: npm install
@@ -32,4 +40,5 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
+          files: ./frontend/coverage/lcov.info
+          working-directory: ./
