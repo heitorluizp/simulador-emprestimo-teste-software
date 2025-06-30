@@ -14,8 +14,6 @@ app.use(cors());
 
 app.use(express.json());
 
-// GET /api/simulations
-// Retrieves all simulation records from the database.
 app.get('/api/simulations', (req, res) => {
   const simulations = db
     .get('simulations')
@@ -29,8 +27,6 @@ app.get('/api/simulations', (req, res) => {
   });
 });
 
-// POST /api/simulations
-// Creates a new simulation record in the database.
 app.post('/api/simulations', async (req, res) => {
   try {
     const { nanoid } = await import('nanoid');
