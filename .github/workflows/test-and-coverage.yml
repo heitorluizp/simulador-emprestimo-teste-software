@@ -71,9 +71,13 @@ jobs:
       - name: iniciar backend
         working-directory: ./backend
         run: npm start &
-      
-      - name: esperar backend subir
-        run: npx wait-on http://localhost:3001
+
+      - name: iniciar frontend
+        working-directory: ./frontend
+        run: npm run dev &
+
+      - name: esperar backend e frontend subirem
+        run: npx wait-on http://localhost:3001 http://localhost:5173
 
       - name: rodar Cypress
         working-directory: ./frontend
