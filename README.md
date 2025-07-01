@@ -55,11 +55,10 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 
 ## 3. Tecnologias Utilizadas
 
-- **React**: Biblioteca JavaScript para construção da interface de usuário.
-- **Material UI**: Biblioteca de componentes React para estilização e responsividade.
-- **Vitest** e **React Testing Library**: Ferramentas para testes automatizados da interface e lógica do sistema.
-- **Day.js**: Biblioteca para manipulação e cálculo de datas.
-- **Node.js** e **npm**: Ambiente de execução e gerenciamento de dependências do projeto.
+- **Frontend**: React, Material UI, Vitest, React Testing Library, Day.js
+- **Backend**: Node.js, Express, lowdb
+- **Testes E2E**: Cypress
+- **Ambiente**: Node.js e npm
 
 ---
 
@@ -93,7 +92,13 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 
    O sistema estará disponível em [http://localhost:3000](http://localhost:3000).
 
-4. **Para rodar os testes:**
+4. **Inicialize o servior**
+
+```sh
+node server.js
+```
+
+5. **Para rodar os testes:**
    ```sh
    npm test
    ```
