@@ -74,7 +74,7 @@ jobs:
 
       - name: iniciar frontend
         working-directory: ./frontend
-        run: npm run dev &
+        run: npx vite --host &
 
       - name: esperar backend e frontend subirem
         run: npx wait-on http://127.0.0.1:3001 http://127.0.0.1:5173
