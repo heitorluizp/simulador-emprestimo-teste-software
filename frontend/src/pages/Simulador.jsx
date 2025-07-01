@@ -1,6 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
-import { SimulacaoService } from '../services/SimulacaoService';
+import React from "react";
+import { useState } from "react";
+import { SimulacaoService } from "../services/SimulacaoService";
 import {
   Alert,
   Box,
@@ -18,13 +18,13 @@ import {
   TableCell,
   TableBody,
   DialogActions,
-} from '@mui/material';
+} from "@mui/material";
 
 const regrasTaxa = [
-  { atributo: 'idade', valor: 18, operador: '>=', taxa: '0.03' },
-  { atributo: 'idade', valor: 25, operador: '>=', taxa: '0.025' },
-  { atributo: 'idade', valor: 35, operador: '>=', taxa: '0.02' },
-  { atributo: 'idade', valor: 60, operador: '>=', taxa: '0.018' },
+  { atributo: "idade", valor: 18, operador: ">=", taxa: "0.03" },
+  { atributo: "idade", valor: 25, operador: ">=", taxa: "0.025" },
+  { atributo: "idade", valor: 35, operador: ">=", taxa: "0.02" },
+  { atributo: "idade", valor: 60, operador: ">=", taxa: "0.018" },
 ];
 const defaultTaxa = 0.05;
 
@@ -32,16 +32,16 @@ export default function Simulador() {
   const service = new SimulacaoService(regrasTaxa, defaultTaxa);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const [valorEmprestimo, setValorEmprestimo] = useState('');
-  const [prazoMeses, setPrazoMeses] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
+  const [valorEmprestimo, setValorEmprestimo] = useState("");
+  const [prazoMeses, setPrazoMeses] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [resultado, setResultado] = useState(null);
 
   const [snackbar, setSnackbar] = React.useState({
-    mensagem: '',
-    tipo: '',
+    mensagem: "",
+    tipo: "",
     aberto: false,
   });
 
@@ -54,13 +54,13 @@ export default function Simulador() {
   };
 
   const handleDataNascimento = (e) => {
-    let value = e.target.value.replace(/\D/g, '');
+    let value = e.target.value.replace(/\D/g, "");
 
     if (value.length > 2) {
-      value = value.slice(0, 2) + '/' + value.slice(2);
+      value = value.slice(0, 2) + "/" + value.slice(2);
     }
     if (value.length > 5) {
-      value = value.slice(0, 5) + '/' + value.slice(5);
+      value = value.slice(0, 5) + "/" + value.slice(5);
     }
 
     if (value.length > 10) {
@@ -71,7 +71,7 @@ export default function Simulador() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -81,7 +81,7 @@ export default function Simulador() {
   const handleCalcular = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const [dia, mes, ano] = dataNascimento.split('/');
+    const [dia, mes, ano] = dataNascimento.split("/");
     const dataNascimentoDate = new Date(`${ano}-${mes}-${dia}`);
     const hoje = new Date();
     let idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
@@ -99,83 +99,86 @@ export default function Simulador() {
     if (isNaN(idade) || idade <= 6) {
       setSnackbar({
         mensagem:
-          'Data de nascimento inválida. A idade deve ser maior do que 6 anos',
-        tipo: 'error',
+          "Data de nascimento inválida. A idade deve ser maior do que 6 anos",
+        tipo: "error",
         aberto: true,
       });
+      setLoading(false);
+      return;
+    }
+
+    if (valorEmprestimo <= 0) {
+      setSnackbar({
+        mensagem: "O valor do empréstimo deve ser maior do que 0",
+        tipo: "error",
+        aberto: true,
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (prazoMeses <= 0) {
+      setSnackbar({
+        mensagem: "O prazo em meses deve ser maior do que 0",
+        tipo: "error",
+        aberto: true,
+      });
+      setLoading(false);
       return;
     }
 
     const resposta = await service.calcularSimulacao(
       valorEmprestimo,
       prazoMeses,
-      dataNascimento,
+      dataNascimento
     );
-
-    if (valorEmprestimo <= 0) {
-      setSnackbar({
-        mensagem: 'O valor do empréstimo deve ser maior do que 0',
-        tipo: 'error',
-        aberto: true,
-      });
-      return;
-    }
-
-    if (prazoMeses <= 0) {
-      setSnackbar({
-        mensagem: 'O prazo em meses deve ser maior do que 0',
-        tipo: 'error',
-        aberto: true,
-      });
-      return;
-    }
 
     setResultado(resposta);
     setSnackbar({
-      mensagem: 'Cálculo realizado com sucesso!',
-      tipo: 'success',
+      mensagem: "Cálculo realizado com sucesso!",
+      tipo: "success",
       aberto: true,
     });
     setLoading(false);
   };
 
   const handleReset = () => {
-    setValorEmprestimo('');
-    setPrazoMeses('');
-    setDataNascimento('');
+    setValorEmprestimo("");
+    setPrazoMeses("");
+    setDataNascimento("");
     setResultado(null);
   };
 
   const textFieldStyle = {
-    '& .MuiOutlinedInput-root': {
-      height: '40px',
-      borderRadius: '8px',
+    "& .MuiOutlinedInput-root": {
+      height: "40px",
+      borderRadius: "8px",
     },
   };
 
   return (
     <Box
       sx={{
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'black',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "black",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Box
         sx={{
           p: 3,
-          backgroundColor: 'white',
-          borderRadius: '8px',
+          backgroundColor: "white",
+          borderRadius: "8px",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             rowGap: 3,
           }}
         >
@@ -188,7 +191,7 @@ export default function Simulador() {
             </Typography>
             <Box
               sx={{
-                display: 'flex',
+                display: "flex",
                 columnGap: 2,
               }}
             >
@@ -226,54 +229,54 @@ export default function Simulador() {
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              width: '100%',
+              display: "flex",
+              width: "100%",
               gap: 2,
-              justifyContent: 'space-between',
-              alignItems: 'start',
-              height: '262px',
+              justifyContent: "space-between",
+              alignItems: "start",
+              height: "262px",
             }}
           >
             <Button
               variant="outlined"
               color="info"
               onClick={handleReset}
-              sx={{ textTransform: 'none' }}
+              sx={{ textTransform: "none" }}
             >
               Resetar
             </Button>
 
             {resultado && (
               <Box
-                sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}
+                sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2 }}
               >
                 <Chip
                   label={`Valor do Empréstimo: R$ ${Number(
-                    resultado.valorEmprestimo,
-                  ).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                  sx={{ fontSize: '16px' }}
+                    resultado.valorEmprestimo
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
                 />
                 <Chip
                   label={`Valor Total: R$ ${Number(
-                    resultado.valorTotal,
-                  ).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                  sx={{ fontSize: '16px' }}
+                    resultado.valorTotal
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
                 />
                 <Chip
                   label={`Valor das Parcelas: R$ ${Number(
-                    resultado.valorParcelas,
-                  ).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                  sx={{ fontSize: '16px' }}
+                    resultado.valorParcelas
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
                 />
                 <Chip
                   label={`Total de Juros: R$ ${Number(
-                    resultado.totalJuros,
-                  ).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
-                  sx={{ fontSize: '16px' }}
+                    resultado.totalJuros
+                  ).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  sx={{ fontSize: "16px" }}
                 />
                 <Chip
                   label={`Prazo (meses): ${resultado.prazoMeses}`}
-                  sx={{ fontSize: '16px' }}
+                  sx={{ fontSize: "16px" }}
                 />
                 <Button
                   variant="outlined"
@@ -304,17 +307,17 @@ export default function Simulador() {
                           <TableRow key={item.parcela}>
                             <TableCell>{item.parcela}</TableCell>
                             <TableCell>
-                              {item.juros.toLocaleString('pt-BR', {
+                              {item.juros.toLocaleString("pt-BR", {
                                 minimumFractionDigits: 2,
                               })}
                             </TableCell>
                             <TableCell>
-                              {item.amortizacao.toLocaleString('pt-BR', {
+                              {item.amortizacao.toLocaleString("pt-BR", {
                                 minimumFractionDigits: 2,
                               })}
                             </TableCell>
                             <TableCell>
-                              {item.saldoDevedor.toLocaleString('pt-BR', {
+                              {item.saldoDevedor.toLocaleString("pt-BR", {
                                 minimumFractionDigits: 2,
                               })}
                             </TableCell>
@@ -333,7 +336,7 @@ export default function Simulador() {
               disabled={!valorEmprestimo || !prazoMeses || !dataNascimento}
               variant="contained"
               onClick={handleCalcular}
-              sx={{ textTransform: 'none' }}
+              sx={{ textTransform: "none" }}
               loading={loading}
             >
               Calcular
@@ -350,7 +353,7 @@ export default function Simulador() {
           onClose={handleClose}
           severity={snackbar.tipo}
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           {snackbar.mensagem}
         </Alert>
