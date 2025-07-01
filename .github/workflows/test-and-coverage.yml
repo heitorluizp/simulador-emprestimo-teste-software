@@ -40,3 +40,37 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./frontend/coverage/lcov.info
           working-directory: ./
+  testes-e2e:
+    name: executar testes E2E
+    needs: testes-unitarios
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout do código
+        uses: actions/checkout@v4
+
+      - name: configurar node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: instalar dependências do backend
+        working-directory: ./backend
+        run: npm install
+
+      - name: instalar dependências do frontend (incluindo Cypress)
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Iniciar servidor backend em background
+        run: |
+          cd backend
+          node server.js &
+
+      - name: rodar testes E2E com Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          start: npm run dev
+          wait-on: 'http://localhost:5173'
+          browser: chrome
+          headless: true
