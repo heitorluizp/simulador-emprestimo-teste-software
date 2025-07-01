@@ -42,7 +42,7 @@ jobs:
           working-directory: ./
   testes-e2e:
     name: executar testes E2E
-    needs: testes-unitarios
+    needs: frontend-test
     runs-on: ubuntu-latest
     steps:
       - name: checkout do código
