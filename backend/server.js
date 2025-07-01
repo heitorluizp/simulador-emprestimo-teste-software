@@ -1,9 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
+const express = require("express");
+const cors = require("cors");
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
 
-const adapter = new FileSync('db.json');
+const adapter = new FileSync("db.json");
 const db = low(adapter);
 
 db.defaults({ simulations: [] }).write();
@@ -14,22 +14,22 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get('/api/simulations', (req, res) => {
+app.get("/api/simulations", (req, res) => {
   const simulations = db
-    .get('simulations')
-    .sortBy('timestamp')
+    .get("simulations")
+    .sortBy("timestamp")
     .reverse()
     .value();
 
   res.json({
-    message: 'success',
+    message: "success",
     data: simulations,
   });
 });
 
-app.post('/api/simulations', async (req, res) => {
+app.post("/api/simulations", async (req, res) => {
   try {
-    const { nanoid } = await import('nanoid');
+    const { nanoid } = await import("nanoid");
     const {
       valorEmprestimo,
       prazoMeses,
@@ -41,7 +41,7 @@ app.post('/api/simulations', async (req, res) => {
     } = req.body;
 
     if (!valorEmprestimo || !prazoMeses || !dataNascimento) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
     const newSimulation = {
@@ -56,10 +56,10 @@ app.post('/api/simulations', async (req, res) => {
       timestamp: new Date().toISOString(),
     };
 
-    db.get('simulations').push(newSimulation).write();
+    db.get("simulations").push(newSimulation).write();
 
     res.status(201).json({
-      message: 'success',
+      message: "success",
       data: newSimulation,
     });
   } catch (error) {
@@ -67,8 +67,13 @@ app.post('/api/simulations', async (req, res) => {
   }
 });
 
+app.post("/api/reset-simulations", (req, res) => {
+  db.set("simulations", []).write();
+  res.sendStatus(200);
+});
+
 const HTTP_PORT = 3001;
 app.listen(HTTP_PORT, () => {
   console.log(`Server with lowdb running on http://localhost:${HTTP_PORT}`);
-  console.log('Database file is db.json');
+  console.log("Database file is db.json");
 });

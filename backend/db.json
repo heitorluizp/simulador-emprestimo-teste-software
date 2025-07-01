@@ -1,22 +1,15 @@
 {
   "simulations": [
     {
-      "id": "7Y4Xrz5JHfkmab2H6OacK",
-      "valorEmprestimo": 100,
-      "prazoMeses": 12,
-      "dataNascimento": "09/11/1999",
-      "timestamp": "2025-06-29T23:07:01.408Z"
-    },
-    {
-      "id": "gMU6JL-aRps3yYw-OHtEA",
-      "valorEmprestimo": 432,
-      "prazoMeses": 12,
-      "dataNascimento": "09/01/1999",
-      "valorTotal": 437.8723,
-      "valorParcelas": 36.4894,
-      "totalJuros": 5.8723,
-      "idade": 26,
-      "timestamp": "2025-06-29T23:18:25.441Z"
+      "id": "TerpxtEORqIelNqSFZb4E",
+      "valorEmprestimo": 9876.54,
+      "prazoMeses": 24,
+      "dataNascimento": "01/01/1990",
+      "valorTotal": 10083.6147,
+      "valorParcelas": 420.1506,
+      "totalJuros": 207.0747,
+      "idade": 35,
+      "timestamp": "2025-07-01T11:41:03.841Z"
     }
   ]
 }
