@@ -37,4 +37,16 @@ describe('LoginPage', () => {
     expect(screen.getByText(/Usuário ou senha inválidos/i)).toBeInTheDocument();
     expect(handleLoginSuccess).not.toHaveBeenCalled();
   });
+  test('deve voltar para a tela de simulação ao clicar no botão de voltar', () => {
+    // Simula um hash inicial para garantir que estamos na página admin
+    window.location.hash = '#admin';
+
+    render(<LoginPage onLoginSuccess={vi.fn()} />);
+
+    const voltarButton = screen.getByRole('button', { name: /voltar para simulação/i });
+
+    fireEvent.click(voltarButton);
+
+    expect(window.location.hash).toBe('');
+  });
 });

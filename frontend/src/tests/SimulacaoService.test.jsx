@@ -72,3 +72,5 @@ describe('SimulacaoService - Tabela de Amortizacao', () => {
     expect(saldos.at(-1)).toBeCloseTo(0, 1);
   });
 });
+
+

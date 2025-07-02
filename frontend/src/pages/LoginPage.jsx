@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 import {
   Box,
   Button,
@@ -48,10 +49,27 @@ export default function LoginPage({ onLoginSuccess }) {
           borderRadius: '8px',
           width: '100%',
           maxWidth: '400px',
+          position: 'relative',
+
         }}
         component="form"
         onSubmit={handleLogin}
       >
+        <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={() => { window.location.hash = ''; }}
+          sx={{
+            position: 'absolute',
+            left: 16,
+            top: 16,
+            textTransform: 'none',
+          }}
+          color="inherit"
+        >
+          Voltar para Simulação
+        </Button>
+        <Box sx={{ height: 40 }} />
+
         <Typography variant="h4" textAlign="center" gutterBottom>
           Admin Login
         </Typography>

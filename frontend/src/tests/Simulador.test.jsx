@@ -308,4 +308,15 @@ describe('Simulador de Cálculo', () => {
 
     expect(button).toBeDisabled();
   });
+
+  test("exibe o botão 'Área Administrativa' e altera o hash ao clicar", () => {
+  window.location.hash = ""; // Garante hash limpo
+  const btn = screen.getByRole('button', { name: /área administrativa/i });
+  expect(btn).toBeInTheDocument();
+
+  fireEvent.click(btn);
+  expect(window.location.hash).toBe("#admin");
+});
+
+
 });

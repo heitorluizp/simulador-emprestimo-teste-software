@@ -165,8 +165,27 @@ export default function Simulador() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        position: "relative",
+
       }}
     >
+    <Box sx={{ position: "absolute", top: 24, right: 24 }}>
+    <Button
+      variant="contained"
+      color="inherit"
+      sx={{
+        backgroundColor: "white",
+        color: "black",
+        boxShadow: 2,
+        "&:hover": {
+          backgroundColor: "#f0f0f0",
+        },
+      }}
+      onClick={() => { window.location.hash = '#admin'; }}
+    >
+      Área Administrativa
+    </Button>
+    </Box>
       <Box
         sx={{
           p: 3,
