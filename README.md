@@ -87,10 +87,10 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 3. **Rode o sistema localmente:**
 
    ```sh
-   npm start
+    npm run dev
    ```
 
-   O sistema estará disponível em [http://localhost:3000](http://localhost:3000).
+   O sistema estará disponível em [http://localhost:5173/](http://localhost:5173/).
 
 4. **Inicialize o servior**
 
