@@ -114,29 +114,60 @@ Essas telas garantem que apenas usuários autorizados possam visualizar o histó
 
 4. **Inicialize o servior**
 
-```sh
-node server.js
-```
+    ```sh
+    node server.js
+    ```
 
-5. **Para rodar os testes:**
-   ```sh
-   npm test
-   ```
+
 
 ---
 
-## Etapa 2 - Testes de integração:
+## 6. Testes Automatizados
+
+### Testes Unitários
+
+- Existem testes unitários para funções e serviços principais do sistema, garantindo o correto funcionamento isolado de cada parte da lógica de negócio.
+
+---
 
 ### Testes de Integração
 
-- **`AdminDashboard.test.jsx`**
-
-  - 4 testes de integração que:
-    - Renderizam o componente `AdminDashboard`
-    - Verificam a interação correta com o `HistoricoService`
-
 - **`Simulador.test.jsx`**
-  - 3 testes de integração que verificam se o componente `Simulador` interage corretamente com o `SimulacaoService` para exibir os resultados:
-    - Exibe mensagem de sucesso e os resultados ao calcular com valores válidos
-    - Exibe todos os campos do resultado após o cálculo com valores válidos
-    - Abre o pop-up da tabela de amortização ao clicar no botão correspondente
+  - Testa o preenchimento e cálculo do simulador, exibição de resultados, validação de campos e navegação para área administrativa.
+
+- **`LoginPage.test.jsx`**
+  - Testa login, mensagens de erro e navegação de volta para simulação.
+
+- **`AdminDashboard.test.jsx`**
+  - Testa a renderização do histórico, estatísticas e tabela de simulações no dashboard admin.
+
+---
+
+### Testes End-to-End (E2E) - Cypress
+
+- **`regular_user_flow.cy.js`**
+  - Simula o fluxo completo de um usuário comum: preenchimento dos campos, cálculo de múltiplos empréstimos, visualização dos resultados e abertura/fechamento da tabela de amortização.
+
+- **`admin_flow.cy.js`**
+  - Testa o fluxo de navegação entre a tela de simulação e a área administrativa, incluindo login, visualização do dashboard, logout e retorno para a tela de simulação.
+
+- **`login_logout.cy.js`**
+  - Testa o login e logout do administrador, garantindo que o acesso e a saída da área administrativa funcionam corretamente.
+
+- **`full_flow.cy.js`**
+  - Testa o fluxo completo: um usuário faz uma simulação e, em seguida, o admin acessa o dashboard e visualiza a simulação recém-criada.
+
+---
+
+**Como rodar os testes:**
+
+- Testes unitários e de integração:
+  ```sh
+  npm test
+  ```
+- Testes E2E (Cypress):
+  ```sh
+  npx cypress open
+  ```
+
+---
