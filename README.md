@@ -16,9 +16,11 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
 
 ### Como funciona
 
+### Simulação
+
 - **Preenchimento dos dados:**  
    O usuário informa o valor do empréstimo, o prazo em meses e sua data de nascimento.
-  ![alt text](image-1.png)
+  ![alt text](image.png)
 
 - **Validação:**  
   O sistema checa se os valores são válidos (por exemplo, se o valor do empréstimo e o prazo são maiores que zero e se a idade mínima é respeitada).
@@ -40,7 +42,7 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
     Assim, o usuário consegue saber exatamente quanto vai pagar em cada mês e quanto pagará ao final do empréstimo.
 
   - Mostra o valor total a ser pago, o total de juros, o valor de cada parcela e o prazo.
-    ![alt text](image-2.png)
+    ![alt text](image-1.png)
 
 - **Tabela de amortização:**  
   O usuário pode abrir uma tabela detalhada que mostra, mês a mês, quanto está pagando de juros, quanto está amortizando e qual o saldo devedor após cada parcela.
@@ -49,7 +51,25 @@ Este sistema é um simulador de empréstimos que permite ao usuário calcular o 
   - O valor pago em juros naquela parcela.
   - O valor efetivamente amortizado (abatido da dívida principal) em cada pagamento.
   - O saldo devedor restante após cada parcela.
-    ![alt text](image-3.png)
+    ![alt text](image-2.png)
+
+### Área Administrativa
+
+- **Acesso:**  
+  No topo da tela principal, há um botão "Área Administrativa". Ao clicar, o usuário é direcionado para a tela de login do administrador.
+
+- **Login:**  
+  O administrador deve informar usuário e senha para acessar a área restrita.
+  ![alt text](image-3.png)
+
+- **Dashboard Administrativo:**  
+  Após o login, o admin tem acesso a uma tela que exibe o histórico completo de todas as simulações realizadas no sistema, incluindo informações como valor do empréstimo, prazo, data de nascimento, valor total, valor das parcelas, total de juros, idade do solicitante e data/hora da simulação.
+  ![alt text](image-4.png)
+
+- **Logout e Navegação:**  
+  O admin pode sair da área administrativa a qualquer momento usando o botão de logout, retornando para a tela de login. Também é possível voltar para a tela de simulação pelo botão "Voltar para Simulação".
+
+Essas telas garantem que apenas usuários autorizados possam visualizar o histórico completo das simulações, trazendo mais segurança e organização para o sistema.
 
 ---
 
