@@ -38,7 +38,6 @@ describe('LoginPage', () => {
     expect(handleLoginSuccess).not.toHaveBeenCalled();
   });
   test('deve voltar para a tela de simulação ao clicar no botão de voltar', () => {
-    // Simula um hash inicial para garantir que estamos na página admin
     window.location.hash = '#admin';
 
     render(<LoginPage onLoginSuccess={vi.fn()} />);
